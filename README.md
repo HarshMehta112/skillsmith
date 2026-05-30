@@ -59,12 +59,12 @@ Run each command **separately** (one per prompt — don't paste both at once):
 
 Run `/skillsmith` at the end of any task. It:
 
-1. **Finds the skill** used in the current session.
-2. **Scans for corrections** — rejected output, added constraints, repeated instructions.
-3. **Proposes a concise `SKILL.md` diff** — preferring to tighten existing rules, flagging any contradictions.
-4. **Asks yes/no** — and edits the file only on **yes**.
+1. **Finds every skill** used in the current session.
+2. **Scans for corrections** — rejected output, added constraints, repeated instructions — and attributes each to the skill it belongs to.
+3. **Proposes a concise `SKILL.md` diff per skill** — preferring to tighten existing rules, flagging any contradictions.
+4. **Asks yes/no for each skill** — and edits that file only on **yes**.
 
-No corrections found? It says so and changes nothing.
+Used several skills in one session? Each gets its own diff and its own approval. No corrections found? It says so and changes nothing.
 
 ## Components
 
