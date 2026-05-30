@@ -1,0 +1,7 @@
+{
+  "name": "skillsmith",
+  "version": "0.1.0",
+  "description": "Self-improving Claude Code skills: fold session corrections back into SKILL.md with a yes/no review.",
+  "author": { "name": "Harsh Mehta" },
+  "license": "MIT"
+}

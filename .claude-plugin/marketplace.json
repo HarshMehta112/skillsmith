@@ -1,0 +1,11 @@
+{
+  "name": "skillsmith",
+  "owner": { "name": "Harsh Mehta" },
+  "plugins": [
+    {
+      "name": "skillsmith",
+      "source": "./",
+      "description": "Self-improving skills: review session corrections and update SKILL.md."
+    }
+  ]
+}
