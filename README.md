@@ -13,11 +13,9 @@ The usual loop: invoke a skill → correct Claude a few times → manually ask i
 ## Install
 
 ```
-/plugin marketplace add <your-github-username>/skillsmith
+/plugin marketplace add HarshMehta112/skillsmith
 /plugin install skillsmith@skillsmith
 ```
-
-Replace `<your-github-username>` with your GitHub user (or org). No marketplace submission required — your repo *is* the marketplace.
 
 ## How it works
 
