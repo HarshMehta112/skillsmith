@@ -35,10 +35,25 @@ Next time you use the skill, it already knows.
 
 ## Install
 
-```
-/plugin marketplace add https://github.com/HarshMehta112/skillsmith.git
-/plugin install skillsmith@skillsmith
-```
+Run each command **separately** (one per prompt — don't paste both at once):
+
+1. Add the marketplace:
+
+   ```
+   /plugin marketplace add https://github.com/HarshMehta112/skillsmith.git
+   ```
+
+2. Install the plugin:
+
+   ```
+   /plugin install skillsmith@skillsmith
+   ```
+
+3. Reload so it's available:
+
+   ```
+   /reload-plugins
+   ```
 
 ## How it works
 
