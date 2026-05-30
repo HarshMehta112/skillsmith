@@ -1,54 +1,72 @@
-# skillsmith
+<div align="center">
 
-Self-improving [Claude Code](https://claude.com/claude-code) skills. When you correct Claude during a session, skillsmith folds those corrections back into the skill's `SKILL.md` — after you approve a diff. Your skills get smarter the more you use them.
+# 🔨 skillsmith
 
-## Why
+**Self-improving [Claude Code](https://claude.com/claude-code) skills.**
 
-The usual loop: invoke a skill → correct Claude a few times → manually ask it to update `SKILL.md`. skillsmith automates that last step, safely:
+Correct Claude once. Run `/skillsmith`. The lesson is folded back into the skill's `SKILL.md` — after you approve the diff. Your skills get sharper every time you use them.
 
-- **Diff-approve, never silent.** Every change is shown as a diff and applied only on your **yes**.
-- **Lean skills.** It tightens existing rules instead of piling on new ones, and flags contradictions.
-- **Reversible.** Keep your skills in git — every update is one revertible commit.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757.svg)](https://claude.com/claude-code)
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
+
+</div>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="skillsmith demo: correct Claude, run /skillsmith, approve the diff" width="720">
+</p>
+
+---
+
+## The problem
+
+You invoke a skill. Claude gets it 90% right. You correct it — "no, always use `pnpm` here", "stop adding comments", "match the existing test style". It fixes it. **Then you close the session and the lesson is gone.** Next time, same correction.
+
+The fix you keep meaning to do: ask Claude to update the `SKILL.md` so it remembers. skillsmith automates that last step — safely.
+
+Next time you use the skill, it already knows.
+
+## Why it's safe
+
+- **🔍 Diff-approve, never silent.** Every edit is shown as a diff and written only on your explicit **yes**.
+- **🪶 Keeps skills lean.** Tightens an existing rule instead of piling on new ones, and flags contradictions instead of stacking them.
+- **↩️ Reversible.** Keep your skills in git — every update is one revertible commit.
+- **🎯 No noise.** One-off task details are ignored. Only durable, reusable lessons change the skill.
 
 ## Install
 
 ```
-/plugin marketplace add HarshMehta112/skillsmith
+/plugin marketplace add https://github.com/HarshMehta112/skillsmith.git
 /plugin install skillsmith@skillsmith
 ```
 
 ## How it works
 
-**1. Manual (in-session) — `/skillsmith`**
-Run it any time at the end of a task. It reviews the current session, proposes `SKILL.md` edits for any corrections you made, and asks yes/no.
+Run `/skillsmith` at the end of any task. It:
 
-**2. Automatic (across sessions)**
-- When a session **ends**, skillsmith silently stages it for review.
-- At the **start** of your next session *in the same project*, Claude asks:
-  > Found possible skill improvements from the last session. Review and apply? (yes/no)
-- **yes** → it runs the `skill-reflector` agent, shows the diff, applies on your confirm.
+1. **Finds the skill** used in the current session.
+2. **Scans for corrections** — rejected output, added constraints, repeated instructions.
+3. **Proposes a concise `SKILL.md` diff** — preferring to tighten existing rules, flagging any contradictions.
+4. **Asks yes/no** — and edits the file only on **yes**.
 
-### Why the prompt is at next start, not at exit
-
-A `SessionEnd` hook **cannot prompt you** — the session is already closing, Claude is gone. So the only way to get a real yes/no around exit is to stage on exit and ask on the next start. That is what skillsmith does.
-
-## Toggle the automatic flow
-
-On by default. To disable the auto stage/ask (keep only `/skillsmith`):
-
-```bash
-export SKILLSMITH_AUTO=0
-```
+No corrections found? It says so and changes nothing.
 
 ## Components
 
 | File | Role |
 |------|------|
-| `commands/skillsmith.md` | `/skillsmith` in-session reflection command |
-| `agents/skill-reflector.md` | subagent that reads a transcript and proposes edits |
-| `hooks/hooks.json` | `SessionEnd` stage + `SessionStart` ask |
-| `scripts/*.sh` | hook logic |
+| `commands/skillsmith.md` | the `/skillsmith` reflection command |
+
+That's the whole plugin — one command, no background hooks, no state on disk. Easy to read, easy to trust.
+
+## Roadmap
+
+- [ ] **Automatic reflection across sessions** — stage a finished session on exit, offer to review it at the next session start.
+- [ ] Target a specific skill by name.
+- [ ] Batch-reflect across several past sessions.
+
+Contributions welcome — open an issue or PR.
 
 ## License
 
-MIT
+[MIT](LICENSE)
